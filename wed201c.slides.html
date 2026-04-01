@@ -3,7 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WED201c — See full file</title>
+    <meta name="slides-format" content="viewport">
+    <title>WED201c — Toàn Bộ PE + FE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-bg: #06070a;
+            --color-bg-deep: #020305;
+            --color-surface: #0d0e14;
+            --color-text: #f0ede8;
+            --color-text-secondary: #c8c0b0;
+            --color-text-muted: #6a6055;
+            --color-accent-1: #c8382a;
+            --color-accent-2: #ff6b35;
+            --color-accent-3: #ff9d00;
+            --color-glass-bg: rgba(200,56,42,0.06);
+            --color-glass-border: rgba(200,56,42,0.18);
+            --color-vignette: rgba(0,0,0,0.72);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+    </style>
+
+    <style>
+        :root {
+            --color-bg: #06070a;
+            --color-text: #f0ede8;
+            --glow-color-rgb: 200,56,42;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { background: var(--color-bg); margin: 0; }
+        body { font-family: 'DM Sans', sans-serif; color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+        .deck { width: 100vw; height: 100vh; position: relative; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.96); transition: opacity 0.8s ease, transform 0.8s ease; pointer-events: none; overflow: hidden; }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+        .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1100px; padding: clamp(1.5rem, 4vw, 4rem); }
+        .nav-controls { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(200,56,42,0.07); backdrop-filter: blur(12px); padding: 10px 24px; border-radius: 40px; border: 1px solid rgba(200,56,42,0.20); }
+        .nav-btn { width: 38px; height: 38px; border: none; background: transparent; color: #c8382a; border-radius: 50%; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .nav-btn:hover { background: rgba(200,56,42,0.15); }
+        .slide-dots { display: flex; gap: 7px; }
+        .slide-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(200,56,42,0.22); cursor: pointer; transition: all 0.3s; }
+        .slide-dots .dot.active { background: #c8382a; transform: scale(1.45); box-shadow: 0 0 8px rgba(200,56,42,0.6); }
+        .slide-counter { font-size: .75rem; color: #6a6055; min-width: 36px; text-align: center; letter-spacing: .05em; }
+        .reveal { opacity: 0; transform: translateY(22px); }
+        .text-glow { text-shadow: 0 0 24px rgba(200,56,42,0.7), 0 0 48px rgba(200,56,42,0.3); }
+        .stat-glow { text-shadow: 0 0 36px rgba(200,56,42,0.9), 0 0 72px rgba(255,107,53,0.4); }
+        @keyframes glow-pulse { 0%,100%{text-shadow:0 0 20px rgba(200,56,42,.7),0 0 40px rgba(200,56,42,.3)} 50%{text-shadow:0 0 40px rgba(255,107,53,1),0 0 80px rgba(200,56,42,.5)} }
+        .glow-pulse { animation: glow-pulse 2.8s ease-in-out infinite; }
+        @keyframes float-slow { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(55px,-45px) scale(1.1)} 50%{transform:translate(-40px,38px) scale(0.9)} 75%{transform:translate(45px,18px) scale(1.07)} 100%{transform:translate(0,0) scale(1)} }
+        @keyframes float-drift { 0%{transform:translate(0,0) scale(1) rotate(0deg)} 33%{transform:translate(-50px,-55px) scale(1.14) rotate(3deg)} 66%{transform:translate(38px,28px) scale(0.87) rotate(-2deg)} 100%{transform:translate(0,0) scale(1) rotate(0deg)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+        .gradient-mesh { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+        .blob { position:absolute; border-radius:50%; filter:blur(90px); animation:float-slow 11s ease-in-out infinite; }
+        .blob:nth-child(2){animation:float-drift 15s ease-in-out infinite;}
+        .blob:nth-child(3){animation:float-slow 19s ease-in-out infinite reverse;}
+        @keyframes dash-flow { from{stroke-dashoffset:1200} to{stroke-dashoffset:0} }
+        @keyframes dash-reverse { from{stroke-dashoffset:0} to{stroke-dashoffset:1200} }
+        .evil-line { stroke-dasharray: 8 4; animation: dash-flow 5s linear infinite; }
+        .evil-line-rev { stroke-dasharray: 6 6; animation: dash-reverse 7s linear infinite; }
+        @keyframes flicker { 0%,100%{opacity:.9} 33%{opacity:.4} 66%{opacity:.75} }
+        .flicker { animation: flicker 2.5s ease-in-out infinite; }
+        @keyframes ember-rise { 0%{transform:translateY(0) scale(1);opacity:.8} 100%{transform:translateY(-80px) scale(.2);opacity:0} }
+        .ember { animation: ember-rise var(--dur) ease-out var(--delay) infinite; }
+        @keyframes scale-breath { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+        .scale-breath { animation: scale-breath 4s ease-in-out infinite; }
+        @keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+        @keyframes spin-rev{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+        .slide::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px 256px; opacity:0.05; mix-blend-mode:overlay; }
+        .slide::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.72) 100%); }
+        .card-evil { background: linear-gradient(135deg, rgba(200,56,42,0.07) 0%, rgba(255,107,53,0.03) 100%); border: 1px solid rgba(200,56,42,0.20); border-radius:14px; padding:1.6rem 1.8rem; position:relative; overflow:hidden; transition:transform .3s, box-shadow .3s; }
+        .card-evil:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(200,56,42,0.20); }
+        .card-evil::before { content:''; position:absolute; inset:0; border-radius:14px; background: linear-gradient(135deg, rgba(200,56,42,0.06), transparent 60%); pointer-events:none; }
+        .accent-bar { width:32px; height:3px; background: linear-gradient(90deg,#c8382a,#ff6b35); border-radius:2px; margin-bottom:.75rem; }
+        .num-badge { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#c8382a,#ff6b35); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:800; color:#fff; flex-shrink:0; box-shadow:0 0 10px rgba(200,56,42,0.5); }
+        .topic-row { display:flex; align-items:flex-start; gap:.9rem; padding:.85rem 1.1rem; border-radius:10px; border:1px solid rgba(200,56,42,0.12); background:rgba(200,56,42,0.04); transition:background .25s; }
+        .topic-row:hover { background:rgba(200,56,42,0.10); }
+        .price-slash { position:relative; display:inline-block; color:#6a6055; }
+        .price-slash::after { content:''; position:absolute; left:0; top:50%; width:100%; height:2px; background:#c8382a; transform:rotate(-8deg); box-shadow:0 0 6px rgba(200,56,42,0.6); }
+        .stat-pill { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem 1rem; border-radius:30px; border:1px solid rgba(200,56,42,0.35); background:rgba(200,56,42,0.08); }
+    </style>
 </head>
-<body><p>Loading...</p></body>
+<body>
+
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+
+<div class="deck">
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide slide-1 active" data-slide="1">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:600px;height:600px;top:-150px;right:-150px;background:#c8382a;opacity:0.13;"></div>
+            <div class="blob" style="width:340px;height:340px;bottom:-100px;left:-80px;background:#ff6b35;opacity:0.10;"></div>
+            <div class="blob" style="width:200px;height:200px;top:38%;left:10%;background:#ff9d00;opacity:0.07;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <path class="evil-line" d="M -60 580 C 80 500, 160 640, 320 555 C 480 470, 560 620, 740 535 C 920 450, 1010 590, 1160 520 C 1200 505, 1220 498, 1280 490" stroke="#c8382a" stroke-width="2.5" fill="none" opacity="0.45"/>
+            <path class="evil-line-rev" d="M -60 610 C 100 530, 180 670, 340 585 C 500 500, 580 650, 760 565 C 940 480, 1030 620, 1180 550" stroke="#ff6b35" stroke-width="1.2" fill="none" opacity="0.25" style="animation-delay:.8s"/>
+            <g opacity="0.20" class="flicker">
+                <path d="M 200 553 L 220 510 L 240 553" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
+                <path d="M 380 527 L 400 482 L 420 527" stroke="#c8382a" stroke-width="1.5" fill="none"/>
+                <path d="M 560 537 L 580 492 L 600 537" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
+                <path d="M 740 510 L 760 465 L 780 510" stroke="#c8382a" stroke-width="1.5" fill="none"/>
+                <path d="M 920 492 L 940 447 L 960 492" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
+            </g>
+            <g transform="translate(145,520)" class="flicker">
+                <ellipse cx="0" cy="0" rx="14" ry="10" stroke="#ff6b35" stroke-width="1.5" fill="rgba(200,56,42,0.15)"/>
+                <ellipse cx="0" cy="0" rx="4" ry="8" fill="rgba(255,107,53,0.7)"/>
+                <circle cx="0" cy="0" r="2" fill="#ff9d00" opacity=".9"/>
+            </g>
+            <circle cx="300" cy="460" r="2.5" fill="#ff6b35" opacity=".7" style="--dur:3.2s;--delay:0s" class="ember"/>
+            <circle cx="480" cy="430" r="1.8" fill="#ff9d00" opacity=".6" style="--dur:2.5s;--delay:.4s" class="ember"/>
+            <circle cx="680" cy="450" r="2" fill="#c8382a" opacity=".7" style="--dur:3.8s;--delay:.9s" class="ember"/>
+            <circle cx="860" cy="420" r="1.5" fill="#ff6b35" opacity=".6" style="--dur:2.8s;--delay:.2s" class="ember"/>
+            <circle cx="1000" cy="440" r="2.2" fill="#ff9d00" opacity=".7" style="--dur:3.5s;--delay:.7s" class="ember"/>
+            <g transform="translate(1060,110)" opacity="0.10">
+                <polygon points="0,-80 69,-40 69,40 0,80 -69,40 -69,-40" stroke="#c8382a" stroke-width="1" fill="none"/>
+                <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" stroke="#ff6b35" stroke-width="1" fill="none"/>
+                <polygon points="0,-36 31,-18 31,18 0,36 -31,18 -31,-18" stroke="#ff9d00" stroke-width="1" fill="none"/>
+                <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" stroke="#c8382a" stroke-width="1" fill="none"/>
+            </g>
+            <g transform="translate(80,620)" opacity="0.13">
+                <polygon points="0,-50 43,25 -43,25" stroke="#c8382a" stroke-width="1.2" fill="none"/>
+                <polygon points="0,-35 30,17.5 -30,17.5" stroke="#ff6b35" stroke-width="1" fill="none"/>
+                <polygon points="0,-20 17,10 -17,10" stroke="#ff9d00" stroke-width="1" fill="none"/>
+            </g>
+        </svg>
+        <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;width:100%;height:100%;"></canvas>
+        <div class="content text-center">
+            <div class="scale-breath" style="margin-bottom:1.2rem;line-height:1;filter:drop-shadow(0 0 30px rgba(200,56,42,0.9));">
+                <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+                    <path d="M 50 10 C 30 10, 15 25, 15 42 C 15 55, 22 65, 35 70 L 30 85 L 40 75 C 43 77, 46 78, 50 78 C 54 78, 57 77, 60 75 L 70 85 L 65 70 C 78 65, 85 55, 85 42 C 85 25, 70 10, 50 10 Z" fill="rgba(200,56,42,0.15)" stroke="#c8382a" stroke-width="1.5"/>
+                    <ellipse cx="37" cy="40" rx="7" ry="5" fill="rgba(200,56,42,0.3)" stroke="#ff6b35" stroke-width="1"/>
+                    <ellipse cx="37" cy="40" rx="2.5" ry="4" fill="#ff9d00"/>
+                    <ellipse cx="63" cy="40" rx="7" ry="5" fill="rgba(200,56,42,0.3)" stroke="#ff6b35" stroke-width="1"/>
+                    <ellipse cx="63" cy="40" rx="2.5" ry="4" fill="#ff9d00"/>
+                    <path d="M 33 15 L 25 0 L 36 12" stroke="#ff6b35" stroke-width="1.5" fill="rgba(255,107,53,0.2)"/>
+                    <path d="M 67 15 L 75 0 L 64 12" stroke="#ff6b35" stroke-width="1.5" fill="rgba(255,107,53,0.2)"/>
+                    <path d="M 50 10 L 50 0 M 42 11 L 40 2 M 58 11 L 60 2" stroke="#c8382a" stroke-width="1.2" opacity=".7"/>
+                    <path d="M 40 65 Q 50 72, 60 65" stroke="#ff9d00" stroke-width="1" fill="none" opacity=".6"/>
+                    <path d="M 45 70 Q 50 78, 55 70" stroke="#ff6b35" stroke-width="1" fill="none" opacity=".5"/>
+                </svg>
+            </div>
+            <p class="reveal" style="font-size:clamp(.65rem,1vw,.85rem);letter-spacing:.35em;text-transform:uppercase;color:#6a6055;margin-bottom:.6rem;">FUOverflow × WED201c</p>
+            <h1 class="reveal glow-pulse" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5.8vw,5rem);font-weight:900;background:linear-gradient(135deg,#c8382a 0%,#ff6b35 45%,#ff9d00 80%,#c8382a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.08;margin-bottom:.9rem;">Toàn Bộ PE &amp; FE<br>WED201c</h1>
+            <p class="reveal" style="font-size:clamp(.8rem,1.3vw,1.1rem);color:#c8c0b0;letter-spacing:.22em;text-transform:uppercase;margin-bottom:2rem;">Web Design · HTML · CSS · JS · Bootstrap</p>
+            <div class="reveal" style="display:inline-flex;align-items:center;gap:1.6rem;padding:.85rem 2.2rem;border:1px solid rgba(200,56,42,0.28);border-radius:50px;background:rgba(200,56,42,0.07);">
+                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">22</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Đề</div></div>
+                <span style="width:1px;height:28px;background:rgba(200,56,42,0.30);"></span>
+                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">21h</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Video</div></div>
+                <span style="width:1px;height:28px;background:rgba(200,56,42,0.30);"></span>
+                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff9d00;line-height:1;">4h</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Miễn phí</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2-8 content continues in full file -->
+    <!-- For full content visit: https://github.com/thepKz/-presentation-video-html -->
+
+</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+    <div class="slide-dots" id="dots"></div>
+    <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+    <span class="slide-counter" id="counter">1 / 1</span>
+</div>
+
+<script>
+    let current = 1;
+    const total = document.querySelectorAll('.slide').length;
+    const dotsContainer = document.getElementById('dots');
+    const counter = document.getElementById('counter');
+    for (let i = 1; i <= total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+    }
+    function goToSlide(n) {
+        document.querySelector('.slide.active')?.classList.remove('active');
+        document.querySelector(`.slide[data-slide="${n}"]`)?.classList.add('active');
+        current = n;
+        document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i+1===current));
+        counter.textContent = current + ' / ' + total;
+    }
+    function changeSlide(dir) { let n = current+dir; if(n<1)n=total; if(n>total)n=1; goToSlide(n); }
+    document.addEventListener('keydown', e => { if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();changeSlide(1);} if(e.key==='ArrowLeft'){e.preventDefault();changeSlide(-1);} });
+</script>
+</body>
 </html>
