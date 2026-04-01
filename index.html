@@ -52,10 +52,14 @@
         .slide-dots .dot.active { background: #c8382a; transform: scale(1.45); box-shadow: 0 0 8px rgba(200,56,42,0.6); }
         .slide-counter { font-size: .75rem; color: #6a6055; min-width: 36px; text-align: center; letter-spacing: .05em; }
         .reveal { opacity: 0; transform: translateY(22px); }
+
+        /* ══ Glow — RED ══ */
         .text-glow { text-shadow: 0 0 24px rgba(200,56,42,0.7), 0 0 48px rgba(200,56,42,0.3); }
         .stat-glow { text-shadow: 0 0 36px rgba(200,56,42,0.9), 0 0 72px rgba(255,107,53,0.4); }
         @keyframes glow-pulse { 0%,100%{text-shadow:0 0 20px rgba(200,56,42,.7),0 0 40px rgba(200,56,42,.3)} 50%{text-shadow:0 0 40px rgba(255,107,53,1),0 0 80px rgba(200,56,42,.5)} }
         .glow-pulse { animation: glow-pulse 2.8s ease-in-out infinite; }
+
+        /* ══ Dragon evil blobs ══ */
         @keyframes float-slow { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(55px,-45px) scale(1.1)} 50%{transform:translate(-40px,38px) scale(0.9)} 75%{transform:translate(45px,18px) scale(1.07)} 100%{transform:translate(0,0) scale(1)} }
         @keyframes float-drift { 0%{transform:translate(0,0) scale(1) rotate(0deg)} 33%{transform:translate(-50px,-55px) scale(1.14) rotate(3deg)} 66%{transform:translate(38px,28px) scale(0.87) rotate(-2deg)} 100%{transform:translate(0,0) scale(1) rotate(0deg)} }
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
@@ -63,6 +67,8 @@
         .blob { position:absolute; border-radius:50%; filter:blur(90px); animation:float-slow 11s ease-in-out infinite; }
         .blob:nth-child(2){animation:float-drift 15s ease-in-out infinite;}
         .blob:nth-child(3){animation:float-slow 19s ease-in-out infinite reverse;}
+
+        /* ══ Evil dragon SVG animation ══ */
         @keyframes dash-flow { from{stroke-dashoffset:1200} to{stroke-dashoffset:0} }
         @keyframes dash-reverse { from{stroke-dashoffset:0} to{stroke-dashoffset:1200} }
         .evil-line { stroke-dasharray: 8 4; animation: dash-flow 5s linear infinite; }
@@ -71,12 +77,16 @@
         .flicker { animation: flicker 2.5s ease-in-out infinite; }
         @keyframes ember-rise { 0%{transform:translateY(0) scale(1);opacity:.8} 100%{transform:translateY(-80px) scale(.2);opacity:0} }
         .ember { animation: ember-rise var(--dur) ease-out var(--delay) infinite; }
+
+        /* ══ Scale/breath ══ */
         @keyframes scale-breath { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
         .scale-breath { animation: scale-breath 4s ease-in-out infinite; }
-        @keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-        @keyframes spin-rev{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+
+        /* ══ Noise + Vignette ══ */
         .slide::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px 256px; opacity:0.05; mix-blend-mode:overlay; }
         .slide::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.72) 100%); }
+
+        /* ══ Cards ══ */
         .card-evil { background: linear-gradient(135deg, rgba(200,56,42,0.07) 0%, rgba(255,107,53,0.03) 100%); border: 1px solid rgba(200,56,42,0.20); border-radius:14px; padding:1.6rem 1.8rem; position:relative; overflow:hidden; transition:transform .3s, box-shadow .3s; }
         .card-evil:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(200,56,42,0.20); }
         .card-evil::before { content:''; position:absolute; inset:0; border-radius:14px; background: linear-gradient(135deg, rgba(200,56,42,0.06), transparent 60%); pointer-events:none; }
@@ -86,6 +96,7 @@
         .topic-row:hover { background:rgba(200,56,42,0.10); }
         .price-slash { position:relative; display:inline-block; color:#6a6055; }
         .price-slash::after { content:''; position:absolute; left:0; top:50%; width:100%; height:2px; background:#c8382a; transform:rotate(-8deg); box-shadow:0 0 6px rgba(200,56,42,0.6); }
+        /* Highlight box for key stats */
         .stat-pill { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem 1rem; border-radius:30px; border:1px solid rgba(200,56,42,0.35); background:rgba(200,56,42,0.08); }
     </style>
 </head>
@@ -95,16 +106,20 @@
 
 <div class="deck">
 
-    <!-- SLIDE 1: TITLE -->
+    <!-- ═══════════════ SLIDE 1: TITLE ═══════════════ -->
     <div class="slide slide-1 active" data-slide="1">
         <div class="gradient-mesh">
             <div class="blob" style="width:600px;height:600px;top:-150px;right:-150px;background:#c8382a;opacity:0.13;"></div>
             <div class="blob" style="width:340px;height:340px;bottom:-100px;left:-80px;background:#ff6b35;opacity:0.10;"></div>
             <div class="blob" style="width:200px;height:200px;top:38%;left:10%;background:#ff9d00;opacity:0.07;"></div>
         </div>
+        <!-- Evil Dragon SVG — serpent wings + ember sparks -->
         <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <!-- Main serpent body -->
             <path class="evil-line" d="M -60 580 C 80 500, 160 640, 320 555 C 480 470, 560 620, 740 535 C 920 450, 1010 590, 1160 520 C 1200 505, 1220 498, 1280 490" stroke="#c8382a" stroke-width="2.5" fill="none" opacity="0.45"/>
+            <!-- Secondary serpent -->
             <path class="evil-line-rev" d="M -60 610 C 100 530, 180 670, 340 585 C 500 500, 580 650, 760 565 C 940 480, 1030 620, 1180 550" stroke="#ff6b35" stroke-width="1.2" fill="none" opacity="0.25" style="animation-delay:.8s"/>
+            <!-- Spine spikes -->
             <g opacity="0.20" class="flicker">
                 <path d="M 200 553 L 220 510 L 240 553" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
                 <path d="M 380 527 L 400 482 L 420 527" stroke="#c8382a" stroke-width="1.5" fill="none"/>
@@ -112,22 +127,26 @@
                 <path d="M 740 510 L 760 465 L 780 510" stroke="#c8382a" stroke-width="1.5" fill="none"/>
                 <path d="M 920 492 L 940 447 L 960 492" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
             </g>
+            <!-- Dragon eye — top left -->
             <g transform="translate(145,520)" class="flicker">
                 <ellipse cx="0" cy="0" rx="14" ry="10" stroke="#ff6b35" stroke-width="1.5" fill="rgba(200,56,42,0.15)"/>
                 <ellipse cx="0" cy="0" rx="4" ry="8" fill="rgba(255,107,53,0.7)"/>
                 <circle cx="0" cy="0" r="2" fill="#ff9d00" opacity=".9"/>
             </g>
+            <!-- Ember sparks floating -->
             <circle cx="300" cy="460" r="2.5" fill="#ff6b35" opacity=".7" style="--dur:3.2s;--delay:0s" class="ember"/>
             <circle cx="480" cy="430" r="1.8" fill="#ff9d00" opacity=".6" style="--dur:2.5s;--delay:.4s" class="ember"/>
             <circle cx="680" cy="450" r="2" fill="#c8382a" opacity=".7" style="--dur:3.8s;--delay:.9s" class="ember"/>
             <circle cx="860" cy="420" r="1.5" fill="#ff6b35" opacity=".6" style="--dur:2.8s;--delay:.2s" class="ember"/>
             <circle cx="1000" cy="440" r="2.2" fill="#ff9d00" opacity=".7" style="--dur:3.5s;--delay:.7s" class="ember"/>
+            <!-- Top right illusion: concentric hex-ish rings -->
             <g transform="translate(1060,110)" opacity="0.10">
                 <polygon points="0,-80 69,-40 69,40 0,80 -69,40 -69,-40" stroke="#c8382a" stroke-width="1" fill="none"/>
                 <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" stroke="#ff6b35" stroke-width="1" fill="none"/>
                 <polygon points="0,-36 31,-18 31,18 0,36 -31,18 -31,-18" stroke="#ff9d00" stroke-width="1" fill="none"/>
                 <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" stroke="#c8382a" stroke-width="1" fill="none"/>
             </g>
+            <!-- Bottom left triangle fractal illusion -->
             <g transform="translate(80,620)" opacity="0.13">
                 <polygon points="0,-50 43,25 -43,25" stroke="#c8382a" stroke-width="1.2" fill="none"/>
                 <polygon points="0,-35 30,17.5 -30,17.5" stroke="#ff6b35" stroke-width="1" fill="none"/>
@@ -136,43 +155,370 @@
         </svg>
         <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;width:100%;height:100%;"></canvas>
         <div class="content text-center">
+            <!-- Evil dragon SVG hero — no emoji -->
             <div class="scale-breath" style="margin-bottom:1.2rem;line-height:1;filter:drop-shadow(0 0 30px rgba(200,56,42,0.9));">
-                <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+                <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Dragon head silhouette -->
                     <path d="M 50 10 C 30 10, 15 25, 15 42 C 15 55, 22 65, 35 70 L 30 85 L 40 75 C 43 77, 46 78, 50 78 C 54 78, 57 77, 60 75 L 70 85 L 65 70 C 78 65, 85 55, 85 42 C 85 25, 70 10, 50 10 Z" fill="rgba(200,56,42,0.15)" stroke="#c8382a" stroke-width="1.5"/>
+                    <!-- Eyes -->
                     <ellipse cx="37" cy="40" rx="7" ry="5" fill="rgba(200,56,42,0.3)" stroke="#ff6b35" stroke-width="1"/>
                     <ellipse cx="37" cy="40" rx="2.5" ry="4" fill="#ff9d00"/>
                     <ellipse cx="63" cy="40" rx="7" ry="5" fill="rgba(200,56,42,0.3)" stroke="#ff6b35" stroke-width="1"/>
                     <ellipse cx="63" cy="40" rx="2.5" ry="4" fill="#ff9d00"/>
+                    <!-- Horns -->
                     <path d="M 33 15 L 25 0 L 36 12" stroke="#ff6b35" stroke-width="1.5" fill="rgba(255,107,53,0.2)"/>
                     <path d="M 67 15 L 75 0 L 64 12" stroke="#ff6b35" stroke-width="1.5" fill="rgba(255,107,53,0.2)"/>
+                    <!-- Spines -->
                     <path d="M 50 10 L 50 0 M 42 11 L 40 2 M 58 11 L 60 2" stroke="#c8382a" stroke-width="1.2" opacity=".7"/>
+                    <!-- Fire breath hint -->
                     <path d="M 40 65 Q 50 72, 60 65" stroke="#ff9d00" stroke-width="1" fill="none" opacity=".6"/>
                     <path d="M 45 70 Q 50 78, 55 70" stroke="#ff6b35" stroke-width="1" fill="none" opacity=".5"/>
                 </svg>
             </div>
             <p class="reveal" style="font-size:clamp(.65rem,1vw,.85rem);letter-spacing:.35em;text-transform:uppercase;color:#6a6055;margin-bottom:.6rem;">FUOverflow × WED201c</p>
-            <h1 class="reveal glow-pulse" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5.8vw,5rem);font-weight:900;background:linear-gradient(135deg,#c8382a 0%,#ff6b35 45%,#ff9d00 80%,#c8382a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.08;margin-bottom:.9rem;">Toàn Bộ PE &amp; FE<br>WED201c</h1>
+            <h1 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5.8vw,5rem);font-weight:900;background:linear-gradient(135deg,#c8382a 0%,#ff6b35 45%,#ff9d00 80%,#c8382a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.08;margin-bottom:.9rem;" class="glow-pulse">Toàn Bộ PE & FE<br>WED201c</h1>
             <p class="reveal" style="font-size:clamp(.8rem,1.3vw,1.1rem);color:#c8c0b0;letter-spacing:.22em;text-transform:uppercase;margin-bottom:2rem;">Web Design · HTML · CSS · JS · Bootstrap</p>
             <div class="reveal" style="display:inline-flex;align-items:center;gap:1.6rem;padding:.85rem 2.2rem;border:1px solid rgba(200,56,42,0.28);border-radius:50px;background:rgba(200,56,42,0.07);">
-                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">22</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Đề</div></div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">22</div>
+                    <div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Đề</div>
+                </div>
                 <span style="width:1px;height:28px;background:rgba(200,56,42,0.30);"></span>
-                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">21h</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Video</div></div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;font-weight:900;color:#ff6b35;line-height:1;" class="stat-glow">21h</div>
+                    <div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Video</div>
+                </div>
                 <span style="width:1px;height:28px;background:rgba(200,56,42,0.30);"></span>
-                <div style="text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:#ff9d00;line-height:1;">4h</div><div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Miễn phí</div></div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;font-weight:900;color:#ff9d00;line-height:1;">4h</div>
+                    <div style="font-size:.68rem;color:#6a6055;text-transform:uppercase;letter-spacing:.1em;">Miễn phí</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 2-8 content continues in full file -->
-    <!-- For full content visit: https://github.com/thepKz/-presentation-video-html -->
+    <!-- ═══════════════ SLIDE 2: VẤN ĐỀ ═══════════════ -->
+    <div class="slide slide-2" data-slide="2">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:400px;height:400px;top:-80px;left:-80px;background:#c8382a;opacity:0.10;"></div>
+            <div class="blob" style="width:280px;height:280px;bottom:-60px;right:-40px;background:#ff6b35;opacity:0.08;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <g transform="translate(1060,120)" opacity="0.11">
+                <rect x="-55" y="-55" width="110" height="110" stroke="#c8382a" stroke-width="1" fill="none" style="animation:spin-slow 20s linear infinite;transform-origin:0 0"/>
+                <rect x="-38" y="-38" width="76" height="76" stroke="#ff6b35" stroke-width="1" fill="none" style="animation:spin-rev 13s linear infinite;transform-origin:0 0"/>
+                <rect x="-20" y="-20" width="40" height="40" stroke="#ff9d00" stroke-width="1" fill="none" style="animation:spin-slow 8s linear infinite;transform-origin:0 0"/>
+            </g>
+        </svg>
+        <style>
+            @keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+            @keyframes spin-rev{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+        </style>
+        <div class="content">
+            <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.5rem;">Vấn đề thực tế</p>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;color:#f0ede8;margin-bottom:1.8rem;line-height:1.2;">Sinh Viên FPT Đối Mặt<br><em style="color:#c8382a;">Điều Gì Trước Kỳ Thi?</em></h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;">
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.95rem;font-weight:600;color:#f0ede8;margin-bottom:.4rem;">Không có đề thực tế để luyện</h4>
+                    <p style="font-size:.84rem;color:#c8c0b0;line-height:1.6;margin:0;">Đề thi PE/FE WED201c không public — sinh viên chỉ đoán mò cấu trúc, mất thời gian ôn sai trọng tâm.</p>
+                </div>
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.95rem;font-weight:600;color:#f0ede8;margin-bottom:.4rem;">Code không chạy, không có gốc</h4>
+                    <p style="font-size:.84rem;color:#c8c0b0;line-height:1.6;margin:0;">Nhiều tài liệu chỉ có screenshot — không thể chạy thử, không hiểu logic thực sự. Đọc xong vẫn không biết code.</p>
+                </div>
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.95rem;font-weight:600;color:#f0ede8;margin-bottom:.4rem;">Không có video bài giảng hệ thống</h4>
+                    <p style="font-size:.84rem;color:#c8c0b0;line-height:1.6;margin:0;">Tìm trên YouTube lỗi, tìm Coursera mất phí, tìm docs tiếng Anh khó — không có nguồn tiếng Việt đủ tốt.</p>
+                </div>
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.95rem;font-weight:600;color:#f0ede8;margin-bottom:.4rem;">Áp lực thời gian cực cao</h4>
+                    <p style="font-size:.84rem;color:#c8c0b0;line-height:1.6;margin:0;">PE tính giờ, FE tính điểm tích lũy — 1 tuần trước thi cần làm đúng, nhanh, không có chỗ thử sai.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 3: GIẢI PHÁP ═══════════════ -->
+    <div class="slide slide-3" data-slide="3">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:500px;height:500px;top:-100px;right:-100px;background:#c8382a;opacity:0.12;"></div>
+            <div class="blob" style="width:250px;height:250px;bottom:-70px;left:-50px;background:#ff9d00;opacity:0.08;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <path class="evil-line" d="M 0 400 C 200 340, 400 460, 600 380 C 800 300, 1000 420, 1200 350" stroke="#c8382a" stroke-width="1.2" opacity="0.18" fill="none"/>
+        </svg>
+        <div class="content">
+            <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.5rem;">Giải pháp</p>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;color:#f0ede8;margin-bottom:.7rem;line-height:1.2;">FUOverflow Giải Quyết<br><em style="color:#c8382a;">Tất Cả Cùng Một Lúc</em></h2>
+            <p class="reveal" style="font-size:.92rem;color:#c8c0b0;margin-bottom:1.6rem;line-height:1.65;max-width:680px;">Một khóa học duy nhất gồm <strong style="color:#ff6b35;">21 tiếng video bài giảng</strong> + <strong style="color:#ff6b35;">22 đề PE/FE có source code</strong> — học xong là đủ điều kiện pass môn, không cần tìm thêm bất kỳ nguồn nào khác.</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+                <div class="card-evil reveal" style="text-align:center;padding:1.4rem 1rem;">
+                    <div style="font-size:2.4rem;font-weight:900;color:#c8382a;line-height:1;margin-bottom:.4rem;" class="stat-glow">21h</div>
+                    <div style="font-size:.8rem;color:#c8c0b0;text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Video bài giảng</div>
+                    <div style="font-size:.74rem;color:#6a6055;margin-top:.3rem;">Tiếng Việt · Có sub<br>Toàn bộ kiến thức WED201c</div>
+                </div>
+                <div class="card-evil reveal" style="text-align:center;padding:1.4rem 1rem;border-color:rgba(255,157,0,0.35);">
+                    <div style="font-size:2.4rem;font-weight:900;color:#ff9d00;line-height:1;margin-bottom:.4rem;" class="stat-glow">4h</div>
+                    <div style="font-size:.8rem;color:#c8c0b0;text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Miễn phí hoàn toàn</div>
+                    <div style="font-size:.74rem;color:#6a6055;margin-top:.3rem;">4 tiếng đầu open access<br>Học trước — quyết định sau</div>
+                </div>
+                <div class="card-evil reveal" style="text-align:center;padding:1.4rem 1rem;">
+                    <div style="font-size:2.4rem;font-weight:900;color:#ff6b35;line-height:1;margin-bottom:.4rem;" class="stat-glow">22</div>
+                    <div style="font-size:.8rem;color:#c8c0b0;text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Đề PE + FE</div>
+                    <div style="font-size:.74rem;color:#6a6055;margin-top:.3rem;">Source code đáp án đầy đủ<br>File gốc chạy được ngay</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 4: 21H VIDEO ═══════════════ -->
+    <div class="slide slide-4" data-slide="4">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:420px;height:420px;bottom:-80px;right:-70px;background:#c8382a;opacity:0.10;"></div>
+            <div class="blob" style="width:260px;height:260px;top:-55px;left:-45px;background:#ff6b35;opacity:0.08;"></div>
+        </div>
+        <div class="content">
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;">
+                <div>
+                    <!-- Big 21h stat -->
+                    <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.4rem;">Video bài giảng</p>
+                    <div class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,8rem);font-weight:900;background:linear-gradient(135deg,#c8382a,#ff6b35,#ff9d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:.95;" class="stat-glow">21<span style="font-size:clamp(2rem,5vw,4rem);">h</span></div>
+                    <div class="reveal" style="font-size:.88rem;color:#c8c0b0;margin-top:.5rem;line-height:1.55;max-width:280px;">Toàn bộ kiến thức WED201c từ HTML cơ bản đến Bootstrap nâng cao — <strong style="color:#f0ede8;">không cần tài liệu thêm.</strong></div>
+                    <div class="reveal" style="margin-top:1rem;padding:.9rem 1.2rem;border:1px solid rgba(255,157,0,0.35);border-radius:12px;background:rgba(255,157,0,0.06);">
+                        <div style="font-size:.72rem;color:#ff9d00;text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-bottom:.3rem;">✦ Học thử miễn phí</div>
+                        <div style="font-size:1.8rem;font-weight:900;color:#ff9d00;line-height:1.1;">4 tiếng đầu</div>
+                        <div style="font-size:.78rem;color:#6a6055;margin-top:.25rem;">Xem thử · Thích mới trả tiền</div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:.7rem;">
+                    <div class="topic-row reveal">
+                        <div class="num-badge">1</div>
+                        <div>
+                            <div style="font-weight:600;color:#f0ede8;font-size:.92rem;">HTML — Cấu trúc trang web</div>
+                            <div style="font-size:.77rem;color:#6a6055;margin-top:.15rem;">Thẻ · Link · Image · Form · Table · Media · Semantic HTML</div>
+                        </div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div class="num-badge">2</div>
+                        <div>
+                            <div style="font-weight:600;color:#f0ede8;font-size:.92rem;">CSS — Tạo kiểu giao diện</div>
+                            <div style="font-size:.77rem;color:#6a6055;margin-top:.15rem;">Selector · Box model · Flexbox · Grid · Animation · Responsive</div>
+                        </div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div class="num-badge">3</div>
+                        <div>
+                            <div style="font-weight:600;color:#f0ede8;font-size:.92rem;">JavaScript — Tương tác & logic</div>
+                            <div style="font-size:.77rem;color:#6a6055;margin-top:.15rem;">DOM · Events · Functions · Arrays · Objects · Fetch API</div>
+                        </div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div class="num-badge">4</div>
+                        <div>
+                            <div style="font-weight:600;color:#f0ede8;font-size:.92rem;">Bootstrap — Framework UI</div>
+                            <div style="font-size:.77rem;color:#6a6055;margin-top:.15rem;">Grid system · Components · Utilities · Icons · Custom theme</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="margin-top:.5rem;display:flex;gap:.7rem;flex-wrap:wrap;">
+                        <span class="stat-pill"><span style="font-size:.78rem;color:#ff6b35;">✦</span> <span style="font-size:.78rem;color:#c8c0b0;">Tiếng Việt dễ hiểu</span></span>
+                        <span class="stat-pill"><span style="font-size:.78rem;color:#ff6b35;">✦</span> <span style="font-size:.78rem;color:#c8c0b0;">Live code từng bước</span></span>
+                        <span class="stat-pill"><span style="font-size:.78rem;color:#ff6b35;">✦</span> <span style="font-size:.78rem;color:#c8c0b0;">Bám sát đề thi FPT</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 5: 22 ĐỀ + SOURCE CODE ═══════════════ -->
+    <div class="slide slide-5" data-slide="5">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:480px;height:480px;top:-100px;right:-100px;background:#c8382a;opacity:0.12;"></div>
+            <div class="blob" style="width:300px;height:300px;bottom:-75px;left:-60px;background:#ff6b35;opacity:0.09;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <!-- Ember sparks -->
+            <circle cx="200" cy="180" r="2" fill="#ff6b35" opacity=".5" style="--dur:2.8s;--delay:.3s" class="ember"/>
+            <circle cx="500" cy="150" r="1.5" fill="#ff9d00" opacity=".5" style="--dur:3.5s;--delay:.8s" class="ember"/>
+            <circle cx="900" cy="200" r="2.2" fill="#c8382a" opacity=".6" style="--dur:2.3s;--delay:.1s" class="ember"/>
+        </svg>
+        <div class="content">
+            <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.5rem;">Bộ đề luyện thi</p>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;color:#f0ede8;margin-bottom:1.5rem;line-height:1.2;"><em style="color:#c8382a;">22 Đề</em> PE + FE<br>Có Source Code Đáp Án</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+                <div class="card-evil reveal" style="border-color:rgba(200,56,42,0.35);">
+                    <div class="accent-bar"></div>
+                    <div style="display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem;">
+                        <span style="font-size:2.8rem;font-weight:900;color:#c8382a;line-height:1;" class="stat-glow">20</span>
+                        <span style="font-size:1rem;color:#c8c0b0;font-weight:600;">Đề PE</span>
+                    </div>
+                    <p style="font-size:.82rem;color:#c8c0b0;line-height:1.6;margin:0;">Practical Exam — thi thực hành code layout, responsive, JS interaction theo đúng format FPT. Có source code file gốc, chạy được ngay trong VSCode.</p>
+                </div>
+                <div class="card-evil reveal" style="border-color:rgba(255,157,0,0.35);">
+                    <div style="width:32px;height:3px;background:linear-gradient(90deg,#ff9d00,#ff6b35);border-radius:2px;margin-bottom:.75rem;"></div>
+                    <div style="display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem;">
+                        <span style="font-size:2.8rem;font-weight:900;color:#ff9d00;line-height:1;" class="stat-glow">2</span>
+                        <span style="font-size:1rem;color:#c8c0b0;font-weight:600;">Đề FE</span>
+                    </div>
+                    <p style="font-size:.82rem;color:#c8c0b0;line-height:1.6;margin:0;">Final Exam — lý thuyết + bài tập tổng hợp. Có key đáp án chi tiết, giải thích tại sao đúng để hiểu bản chất, không chỉ chép đáp án.</p>
+                </div>
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.9rem;font-weight:700;color:#f0ede8;margin-bottom:.4rem;">Source Code File Gốc</h4>
+                    <p style="font-size:.8rem;color:#c8c0b0;line-height:1.55;margin:0;">File .html .css .js chạy được ngay — mở ra là thấy output đúng yêu cầu đề. Không phải ảnh, không phải PDF đọc chơi.</p>
+                </div>
+                <div class="card-evil reveal">
+                    <div class="accent-bar"></div>
+                    <h4 style="font-size:.9rem;font-weight:700;color:#f0ede8;margin-bottom:.4rem;">Giải Thích Logic Từng Bước</h4>
+                    <p style="font-size:.8rem;color:#c8c0b0;line-height:1.55;margin:0;">Tại sao dùng flexbox chứ không float, tại sao selector này, JS logic ra sao — hiểu xong có thể tự làm biến thể khác.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 6: CHO AI? ═══════════════ -->
+    <div class="slide slide-6" data-slide="6">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:400px;height:400px;bottom:-80px;right:-60px;background:#c8382a;opacity:0.10;"></div>
+            <div class="blob" style="width:250px;height:250px;top:-55px;left:-45px;background:#ff9d00;opacity:0.08;"></div>
+        </div>
+        <div class="content">
+            <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.5rem;">Đối tượng</p>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;color:#f0ede8;margin-bottom:1.5rem;line-height:1.2;">Khóa Học Này <em style="color:#c8382a;">Phù Hợp</em><br>Với Bạn Không?</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+                <div style="display:flex;flex-direction:column;gap:.7rem;">
+                    <div style="font-size:.76rem;text-transform:uppercase;letter-spacing:.15em;color:#c8382a;margin-bottom:.1rem;">✓ Phù hợp nếu bạn là…</div>
+                    <div class="topic-row reveal">
+                        <div style="font-size:1.2rem;">🎓</div>
+                        <div><div style="font-weight:600;font-size:.88rem;color:#f0ede8;">Sinh viên FPT học WED201c</div><div style="font-size:.76rem;color:#6a6055;">Muốn qua môn, lấy điểm cao PE + FE</div></div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div style="font-size:1.2rem;">📅</div>
+                        <div><div style="font-weight:600;font-size:.88rem;color:#f0ede8;">Gần ngày thi, cần ôn gấp</div><div style="font-size:.76rem;color:#6a6055;">1–2 tuần trước thi PE hoặc FE</div></div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div style="font-size:1.2rem;">🧑‍💻</div>
+                        <div><div style="font-weight:600;font-size:.88rem;color:#f0ede8;">Muốn hiểu pattern đề thi</div><div style="font-size:.76rem;color:#6a6055;">Cần làm thực tế, không chỉ học lý thuyết</div></div>
+                    </div>
+                    <div class="topic-row reveal">
+                        <div style="font-size:1.2rem;">🔰</div>
+                        <div><div style="font-weight:600;font-size:.88rem;color:#f0ede8;">Mới học lập trình web</div><div style="font-size:.76rem;color:#6a6055;">Học từ đầu qua 21h video — không cần nền</div></div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:.7rem;">
+                    <div style="font-size:.76rem;text-transform:uppercase;letter-spacing:.15em;color:#6a6055;margin-bottom:.1rem;">✗ Không phù hợp nếu…</div>
+                    <div class="card-evil reveal" style="padding:.9rem 1.1rem;opacity:.7;">
+                        <div style="font-size:.84rem;color:#c8c0b0;line-height:1.55;">Bạn học trường khác, không theo chương trình FPT — đề thi có thể không khớp format.</div>
+                    </div>
+                    <div class="card-evil reveal" style="padding:.9rem 1.1rem;opacity:.7;">
+                        <div style="font-size:.84rem;color:#c8c0b0;line-height:1.55;">Bạn muốn tài liệu miễn phí hoàn toàn — 4h đầu miễn phí để xem thử, phần còn lại là trả phí.</div>
+                    </div>
+                    <div class="card-evil reveal" style="padding:.9rem 1.1rem;opacity:.7;">
+                        <div style="font-size:.84rem;color:#c8c0b0;line-height:1.55;">Bạn đã thành thạo HTML/CSS/JS/Bootstrap và chỉ muốn ôn nhanh — nội dung bắt đầu từ cơ bản.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 7: GIÁ & CTA ═══════════════ -->
+    <div class="slide slide-7" data-slide="7">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:560px;height:560px;top:-120px;right:-120px;background:#c8382a;opacity:0.15;"></div>
+            <div class="blob" style="width:380px;height:380px;bottom:-100px;left:-90px;background:#ff6b35;opacity:0.10;"></div>
+            <div class="blob" style="width:220px;height:220px;top:38%;left:8%;background:#ff9d00;opacity:0.08;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <path class="evil-line" d="M -60 640 C 150 560, 300 700, 520 620 C 740 540, 880 680, 1100 600 C 1160 580, 1190 568, 1280 555" stroke="#c8382a" stroke-width="2.5" opacity="0.30" fill="none"/>
+            <circle cx="350" cy="500" r="2" fill="#ff6b35" opacity=".6" style="--dur:3s;--delay:.2s" class="ember"/>
+            <circle cx="650" cy="480" r="1.8" fill="#ff9d00" opacity=".6" style="--dur:2.6s;--delay:.6s" class="ember"/>
+            <circle cx="950" cy="510" r="2.2" fill="#c8382a" opacity=".7" style="--dur:3.4s;--delay:.1s" class="ember"/>
+        </svg>
+        <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;width:100%;height:100%;"></canvas>
+        <div class="content text-center">
+            <p class="reveal" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#6a6055;margin-bottom:.5rem;">Giá trị</p>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;color:#f0ede8;margin-bottom:.6rem;line-height:1.1;">Đầu Tư Một Lần,<br><em style="background:linear-gradient(135deg,#c8382a,#ff6b35,#ff9d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pass Môn Vĩnh Viễn</em></h2>
+            <p class="reveal" style="font-size:.9rem;color:#c8c0b0;margin-bottom:1.8rem;">21h video · 22 đề PE+FE · Source code đáp án đầy đủ · 4h đầu miễn phí</p>
+            <div class="reveal" style="display:inline-block;background:linear-gradient(135deg,rgba(200,56,42,0.13),rgba(255,107,53,0.07));border:1px solid rgba(200,56,42,0.38);border-radius:20px;padding:1.8rem 3rem;margin-bottom:1.8rem;position:relative;">
+                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#c8382a,#ff6b35);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.3rem 1.2rem;border-radius:20px;white-space:nowrap;box-shadow:0 0 16px rgba(200,56,42,0.5);">Best Value</div>
+                <div style="font-size:.85rem;color:#6a6055;margin-bottom:.4rem;"><span class="price-slash">500.000đ</span></div>
+                <div style="font-size:clamp(2.8rem,6.5vw,4.2rem);font-weight:900;background:linear-gradient(135deg,#c8382a,#ff6b35,#ff9d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;" class="stat-glow">250.000đ</div>
+                <div style="font-size:.8rem;color:#6a6055;margin-top:.4rem;">Một lần · Truy cập vĩnh viễn · Cập nhật liên tục</div>
+            </div>
+            <div class="reveal" style="display:flex;justify-content:center;gap:1.8rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+                <span style="font-size:.8rem;color:#c8c0b0;display:flex;align-items:center;gap:.35rem;"><span style="color:#c8382a;">✦</span> 4h đầu xem miễn phí</span>
+                <span style="font-size:.8rem;color:#c8c0b0;display:flex;align-items:center;gap:.35rem;"><span style="color:#c8382a;">✦</span> Source code 22 đề</span>
+                <span style="font-size:.8rem;color:#c8c0b0;display:flex;align-items:center;gap:.35rem;"><span style="color:#c8382a;">✦</span> Giải thích chi tiết</span>
+                <span style="font-size:.8rem;color:#c8c0b0;display:flex;align-items:center;gap:.35rem;"><span style="color:#ff9d00;">✦</span> Cập nhật đề mới</span>
+            </div>
+            <a href="https://fuoverflow.com/course/wed201c-toan-bo-pe-fe.8/" class="reveal" style="display:inline-block;background:linear-gradient(135deg,#c8382a,#ff6b35);color:#fff;font-weight:800;font-size:1rem;letter-spacing:.07em;padding:1rem 2.8rem;border-radius:50px;text-decoration:none;transition:transform .25s,box-shadow .25s;box-shadow:0 8px 32px rgba(200,56,42,0.45);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 50px rgba(200,56,42,0.65)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(200,56,42,0.45)'">
+                Mua Ngay Trên FUOverflow →
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════════════ SLIDE 8: CLOSING ═══════════════ -->
+    <div class="slide slide-8" data-slide="8">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:640px;height:640px;top:-140px;right:-140px;background:#c8382a;opacity:0.14;"></div>
+            <div class="blob" style="width:400px;height:400px;bottom:-110px;left:-100px;background:#ff6b35;opacity:0.10;"></div>
+            <div class="blob" style="width:260px;height:260px;top:32%;left:6%;background:#ff9d00;opacity:0.09;"></div>
+        </div>
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;" viewBox="0 0 1200 700" fill="none">
+            <path class="evil-line" d="M -60 450 C 100 370, 250 520, 420 430 C 590 340, 720 490, 900 400 C 1060 320, 1150 400, 1280 355" stroke="#c8382a" stroke-width="2" opacity="0.32" fill="none"/>
+            <path class="evil-line-rev" d="M -60 470 C 120 390, 270 540, 440 450 C 610 360, 740 510, 920 420 C 1080 340, 1160 420, 1280 375" stroke="#ff6b35" stroke-width="1" opacity="0.18" fill="none"/>
+            <!-- Dragon spine top -->
+            <g opacity="0.18" class="flicker">
+                <path d="M 400 200 L 420 155 L 440 200" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
+                <path d="M 580 185 L 600 140 L 620 185" stroke="#c8382a" stroke-width="1.5" fill="none"/>
+                <path d="M 760 195 L 780 150 L 800 195" stroke="#ff9d00" stroke-width="1.5" fill="none"/>
+            </g>
+            <!-- Embers -->
+            <circle cx="300" cy="350" r="2" fill="#ff6b35" opacity=".7" style="--dur:2.8s;--delay:0s" class="ember"/>
+            <circle cx="600" cy="320" r="1.8" fill="#ff9d00" opacity=".6" style="--dur:3.2s;--delay:.5s" class="ember"/>
+            <circle cx="900" cy="340" r="2.4" fill="#c8382a" opacity=".7" style="--dur:2.5s;--delay:.9s" class="ember"/>
+        </svg>
+        <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;width:100%;height:100%;"></canvas>
+        <div class="content text-center">
+            <!-- Evil dragon hero SVG — large -->
+            <div class="scale-breath" style="margin-bottom:1.1rem;filter:drop-shadow(0 0 40px rgba(200,56,42,1));">
+                <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+                    <path d="M 50 8 C 28 8, 12 24, 12 42 C 12 56, 20 67, 34 72 L 28 88 L 40 76 C 43 78, 46 80, 50 80 C 54 80, 57 78, 60 76 L 72 88 L 66 72 C 80 67, 88 56, 88 42 C 88 24, 72 8, 50 8 Z" fill="rgba(200,56,42,0.18)" stroke="#c8382a" stroke-width="1.8"/>
+                    <ellipse cx="36" cy="39" rx="8" ry="6" fill="rgba(200,56,42,0.35)" stroke="#ff6b35" stroke-width="1.2"/>
+                    <ellipse cx="36" cy="39" rx="3" ry="5" fill="#ff9d00"/>
+                    <circle cx="36" cy="38" r="1.5" fill="#fff" opacity=".6"/>
+                    <ellipse cx="64" cy="39" rx="8" ry="6" fill="rgba(200,56,42,0.35)" stroke="#ff6b35" stroke-width="1.2"/>
+                    <ellipse cx="64" cy="39" rx="3" ry="5" fill="#ff9d00"/>
+                    <circle cx="64" cy="38" r="1.5" fill="#fff" opacity=".6"/>
+                    <path d="M 30 13 L 20 -2 L 34 10" stroke="#ff6b35" stroke-width="1.8" fill="rgba(255,107,53,0.25)"/>
+                    <path d="M 70 13 L 80 -2 L 66 10" stroke="#ff6b35" stroke-width="1.8" fill="rgba(255,107,53,0.25)"/>
+                    <path d="M 50 8 L 50 -2 M 40 10 L 38 0 M 60 10 L 62 0" stroke="#c8382a" stroke-width="1.4" opacity=".8"/>
+                    <path d="M 36 70 C 40 78 50 82 60 78 C 55 76 50 74 45 76 Z" fill="rgba(255,107,53,0.3)" stroke="#ff6b35" stroke-width=".8"/>
+                    <!-- Teeth hint -->
+                    <path d="M 40 64 L 43 70 M 47 65 L 50 72 M 53 65 L 57 70 M 60 64 L 63 70" stroke="#ff9d00" stroke-width=".8" opacity=".5"/>
+                </svg>
+            </div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:900;background:linear-gradient(135deg,#c8382a 0%,#ff6b35 45%,#ff9d00 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.9rem;line-height:1.08;" class="glow-pulse">Học Đúng.<br>Luyện Đúng.<br>Qua Môn Đúng Hạn.</h2>
+            <p class="reveal" style="font-size:.9rem;color:#c8c0b0;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.8rem;">FUOverflow · WED201c · 21h · 22 Đề · 4h Miễn Phí</p>
+            <div class="reveal" style="display:inline-flex;align-items:center;gap:.8rem;padding:.7rem 1.8rem;border:1px solid rgba(200,56,42,0.22);border-radius:50px;">
+                <span style="font-size:.82rem;color:#6a6055;">fuoverflow.com</span>
+                <span style="width:1px;height:14px;background:rgba(200,56,42,0.28);"></span>
+                <span style="font-size:.82rem;color:#c8382a;">wed201c-toan-bo-pe-fe</span>
+            </div>
+        </div>
+    </div>
 
 </div>
 
+<!-- NAVIGATION -->
 <div class="nav-controls">
     <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
     <div class="slide-dots" id="dots"></div>
     <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
-    <span class="slide-counter" id="counter">1 / 1</span>
+    <span class="slide-counter" id="counter">1 / 8</span>
 </div>
 
 <script>
@@ -187,14 +533,96 @@
         dotsContainer.appendChild(dot);
     }
     function goToSlide(n) {
-        document.querySelector('.slide.active')?.classList.remove('active');
-        document.querySelector(`.slide[data-slide="${n}"]`)?.classList.add('active');
-        current = n;
-        document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i+1===current));
+        const prev = document.querySelector('.slide.active');
+        const next = document.querySelector(`.slide[data-slide="${n}"]`);
+        if (prev) prev.classList.remove('active');
+        if (next) { next.classList.add('active'); animateSlide(next); }
+        current = n; updateNav();
+    }
+    function changeSlide(dir) { let n = current + dir; if (n < 1) n = total; if (n > total) n = 1; goToSlide(n); }
+    function updateNav() {
+        document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current));
         counter.textContent = current + ' / ' + total;
     }
-    function changeSlide(dir) { let n = current+dir; if(n<1)n=total; if(n>total)n=1; goToSlide(n); }
-    document.addEventListener('keydown', e => { if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();changeSlide(1);} if(e.key==='ArrowLeft'){e.preventDefault();changeSlide(-1);} });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+    });
+    let tX = 0;
+    document.addEventListener('touchstart', (e) => { tX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => { const d = tX - e.changedTouches[0].clientX; if (Math.abs(d) > 50) changeSlide(d > 0 ? 1 : -1); });
+
+    function animateSlide(slide) {
+        slide.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(22px)';
+            el.offsetHeight;
+            const d = i * 0.09;
+            el.style.transition = `opacity .4s ease ${d}s, transform .4s ease ${d}s`;
+            el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+        });
+        slide.querySelectorAll('.particle-canvas:not([data-init])').forEach(c => {
+            c.setAttribute('data-init','1');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            window.initParticles(c, { interactive: true, count: 45 });
+        });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        const s = document.querySelector('.mouse-spotlight');
+        if (s) s.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(200,56,42,0.06), transparent 40%)`;
+    });
+
+    (function() {
+        let mx = window.innerWidth/2, my = window.innerHeight/2;
+        document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+        const cx = window.innerWidth/2, cy = window.innerHeight/2;
+        (function tick() {
+            const ox = (mx-cx)/cx, oy = (my-cy)/cy;
+            document.querySelectorAll('.deco-shape').forEach(s => {
+                const sp = parseFloat(s.dataset.speed)||.03;
+                s.style.transform = `translate(${ox*sp*100}px,${oy*sp*100}px)`;
+            });
+            requestAnimationFrame(tick);
+        })();
+    })();
+
+    window.initParticles = function(canvas, options) {
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const count = options.count || 40;
+        let mx = -1000, my = -1000;
+        const pts = Array.from({length:count}, () => ({
+            x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+            vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35,
+            size: Math.random()*2+.8, alpha: Math.random()*.28+.07
+        }));
+        if (options.interactive) {
+            canvas.addEventListener('mousemove', (e) => { const r = canvas.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; });
+            canvas.addEventListener('mouseleave', () => { mx=-1000; my=-1000; });
+        }
+        (function anim() {
+            if (!canvas.closest('.slide.active')) { requestAnimationFrame(anim); return; }
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            pts.forEach(p => {
+                const dx=p.x-mx, dy=p.y-my, dist=Math.sqrt(dx*dx+dy*dy);
+                if (dist < 100) { const f=(100-dist)/100*1.4; p.vx+=(dx/dist)*f*.07; p.vy+=(dy/dist)*f*.07; }
+                p.vx*=.98; p.vy*=.98; p.x+=p.vx; p.y+=p.vy;
+                if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
+                if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
+                ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+                ctx.fillStyle=`rgba(200,56,42,${p.alpha})`; ctx.fill();
+            });
+            requestAnimationFrame(anim);
+        })();
+    };
+
+    document.querySelectorAll('.slide-1 .particle-canvas').forEach(c => {
+        c.setAttribute('data-init','1');
+        window.initParticles(c, {interactive:true, count:50});
+    });
+
+    try { animateSlide(document.querySelector('.slide.active')); } catch(e) {}
 </script>
 </body>
 </html>
